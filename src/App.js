@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import FormattedTime from "./Components/FormattedTime/FormattedTime";
+import Button from './Components/Button/Button';
+import Container from "./Components/Container/Container";
 
-function App() {
+const App = () => {
+
+  const [time, setTime] = useState(0);
+  const [timer, setTimer] = useState(null);
+
+  const start = () => {
+    setTimer(setInterval(() => {
+      setTime(prevValue => prevValue + 1);
+    }, 10))
+  };
+
+  const stop = () => {
+    clearInterval(timer);
+    setTimer();
+  }
+
+  const reset = () => {
+    setTime(0);
+    setTimer(null);
+  }
+
+  useEffect(() => {
+    return () => {
+       if(timer) clearInterval(timer);
+    };
+  }, []);
+
+
+  // reset usuwa wartość
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <FormattedTime time={time} />
+        <Button value={start}>start</Button>
+        <Button value={stop}>stop</Button>
+        <Button value={reset}>reset</Button>
+    </Container>
   );
-}
+};
 
 export default App;
