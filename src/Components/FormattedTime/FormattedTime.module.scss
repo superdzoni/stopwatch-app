@@ -2,9 +2,12 @@
 
 
 .formattedTime {
-  font-family: $font-text;
 	font-size: 42px;
 	text-align: center;
   padding: 18px;
 	color: $color-light;
+}
+
+.span {
+	font-family: $font-text;
 }
